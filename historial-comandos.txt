@@ -1,0 +1,16 @@
+    1  cd Desktop
+    2  git clone https://github.com/Marcos-afk-hub/api-inventario.git
+    3  git clone https://github.com/Marcos-afk-hub/api-inventario.git
+    4  cd api-inventario
+    5  ls
+    6  python -m venv venv
+    7  source venv/Scripts/activate
+    8  touch .gitignore
+    9  code .gitignore
+   10  code README.md
+   11  git status
+   12  git add.
+   13  git add .
+   14  git commit -m "Carpeta venv (entorno virtual) creada, gitignore creado/modificado y README modificado exitosamente"
+   15  git push origin main
+   16  history > historial-comandos.txt
