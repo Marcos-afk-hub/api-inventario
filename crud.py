@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 import models
 import schemas
+from auth import hashear_contraseña
 
 #CREATE
 def crear_producto(db: Session, producto: schemas.ProductoCrear):
@@ -41,3 +42,19 @@ def eliminar_producto(db: Session, producto_id: int):
     db.delete(producto)
     db.commit()
     return producto
+
+#Usuarios
+def obtener_usuario_por_email(db: Session, email: str):
+    return db.query(models.Usuario).filter(models.Usuario.email == email).first()
+
+def crear_usuario(db: Session, usuario: schemas.UsuarioCrear):
+    contraseña_hash = hashear_contraseña(usuario.contraseña)
+    nuevo_usuario = models.Usuario(
+        email=usuario.email,
+        nombre=usuario.nombre,
+        contraseña_hash=contraseña_hash
+    )
+    db.add(nuevo_usuario)
+    db.commit()
+    db.refresh(nuevo_usuario)
+    return nuevo_usuario

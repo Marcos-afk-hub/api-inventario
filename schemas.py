@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 from typing import Optional
 
 #Schema base con los campos comunes
@@ -26,4 +26,30 @@ class ProductoRespuesta(ProductoBase):
     id: int
 
     class Config:
-        from_attributes = True    
+        from_attributes = True
+
+# Usuarios
+
+class UsuarioCrear(BaseModel):
+    email: EmailStr
+    nombre: str = Field(..., min_length=1, max_length=100)
+    contraseña: str = Field(..., min_length=8, max_length=100)
+
+class UsuarioRespuesta(BaseModel):
+    id: int
+    email: EmailStr
+    nombre: str
+    activo: bool
+
+    class Config:
+        from_attributes = True
+
+class UsuarioLogin(BaseModel):
+    email: EmailStr
+    contraseña: str
+
+#Token
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
